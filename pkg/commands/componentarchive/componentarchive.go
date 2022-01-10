@@ -21,6 +21,7 @@ import (
 	"github.com/gardener/component-cli/pkg/commands/componentarchive/componentreferences"
 	"github.com/gardener/component-cli/pkg/commands/componentarchive/remote"
 	"github.com/gardener/component-cli/pkg/commands/componentarchive/resources"
+	"github.com/gardener/component-cli/pkg/commands/componentarchive/set"
 	"github.com/gardener/component-cli/pkg/commands/componentarchive/sources"
 	ctfcmd "github.com/gardener/component-cli/pkg/commands/ctf"
 	"github.com/gardener/component-cli/pkg/componentarchive"
@@ -74,6 +75,7 @@ func NewComponentArchiveCommand(ctx context.Context) *cobra.Command {
 	cmd.AddCommand(resources.NewResourcesCommand(ctx))
 	cmd.AddCommand(componentreferences.NewCompRefCommand(ctx))
 	cmd.AddCommand(sources.NewSourcesCommand(ctx))
+	cmd.AddCommand(set.NewSetCommand(ctx))
 	return cmd
 }
 
@@ -110,6 +112,7 @@ func (o *ComponentArchiveOptions) Run(ctx context.Context, log logr.Logger, fs v
 			return fmt.Errorf("unable to add component archive to ctf: %w", err)
 		}
 		log.Info("Successfully added ctf\n")
+		return nil
 	}
 
 	// only copy essential files to the temp dir
